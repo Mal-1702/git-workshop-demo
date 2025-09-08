@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple HTML Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px #0001;
+            max-width: 400px;
+            margin: auto;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            background: #0066ff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #004bb5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to My Simple HTML Page</h1>
+        <p>This is a simple web page with a header, a paragraph, and a button. Click the button below to see an alert!</p>
+        <button id="myButton">Click Me</button>
+    </div>
+    <script>
+        document.getElementById('myButton').addEventListener('click', function() {
+            alert('Button was clicked!');
+        });
+    </script>
+</body>
+</html>
