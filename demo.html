@@ -24,11 +24,12 @@
       min-height: 100vh;
       background: var(--bg-black);
       font-family: 'Roboto', Arial, sans-serif;
-      overflow: hidden;
       color: #eaf8f6;
-      display: flex;
+      /* Remove overflow: hidden and flex centering to allow scrolling */
+      /* display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: center; */
+      position: relative;
     }
     /* Matrix coding animation background */
     .matrix-bg {
@@ -40,6 +41,80 @@
       background: var(--bg-black);
       pointer-events: none;
     }
+
+    /* SCROLLING ANIMATION */
+    .scroll-indicator {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+      opacity: 0.93;
+      animation: fadeInScroll 1.6s 2s both;
+    }
+    @keyframes fadeInScroll {
+      from { opacity: 0; transform: translateX(-50%) translateY(18px);}
+      to   { opacity: 0.93; transform: translateX(-50%) translateY(0);}
+    }
+    .scroll-mouse {
+      width: 30px;
+      height: 50px;
+      border: 2px solid var(--neon-cyan);
+      border-radius: 16px;
+      position: relative;
+      margin-bottom: 8px;
+      background: rgba(30,55,60,0.13);
+      box-shadow: 0 0 8px #00fff744;
+    }
+    .scroll-wheel {
+      width: 6px;
+      height: 12px;
+      background: var(--neon-green);
+      border-radius: 4px;
+      position: absolute;
+      left: 50%;
+      top: 10px;
+      transform: translateX(-50%);
+      opacity: 0.86;
+      animation: wheelMove 1.1s infinite;
+    }
+    @keyframes wheelMove {
+      0% { top: 10px; opacity: 0.86;}
+      40% { top: 22px; opacity: 1;}
+      100% { top: 10px; opacity: 0.86;}
+    }
+    .scroll-arrows {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .scroll-arrow {
+      width: 18px;
+      height: 10px;
+      border: none;
+      background: none;
+      display: block;
+    }
+    .scroll-arrow svg {
+      display: block;
+      stroke: var(--neon-green);
+      stroke-width: 2.5px;
+      filter: drop-shadow(0 0 10px #39ff1440);
+      animation: arrowBounce 1.6s infinite;
+    }
+    .scroll-arrow.down2 svg { animation-delay: 0.3s;}
+    .scroll-arrow.down3 svg { animation-delay: 0.6s;}
+    @keyframes arrowBounce {
+      0%, 100% { transform: translateY(0);}
+      40% { transform: translateY(4px);}
+      60% { transform: translateY(1px);}
+    }
+
     .portfolio-container {
       position: relative;
       z-index: 2;
@@ -55,8 +130,9 @@
       gap: 2.2rem;
       backdrop-filter: blur(11px) saturate(1.3);
       border: 2.5px solid rgba(57,255,20,0.09);
-      margin: 36px 0;
-      animation: fadeIn 1.5s;
+      margin: 48px auto;
+      /* Remove animation that might conflict with scroll */
+      /* animation: fadeIn 1.5s; */
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(60px);}
@@ -206,12 +282,34 @@
         width: 100vw;
         height: 100vh;
       }
+      .scroll-indicator {
+        bottom: 6px;
+      }
     }
   </style>
 </head>
 <body>
   <!-- Animated matrix coding background -->
   <canvas class="matrix-bg" id="matrix"></canvas>
+
+  <!-- Scroll down indicator -->
+  <div class="scroll-indicator">
+    <div class="scroll-mouse">
+      <div class="scroll-wheel"></div>
+    </div>
+    <div class="scroll-arrows">
+      <span class="scroll-arrow down1">
+        <svg width="18" height="10"><polyline points="2,2 9,8 16,2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="scroll-arrow down2">
+        <svg width="18" height="10"><polyline points="2,2 9,8 16,2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="scroll-arrow down3">
+        <svg width="18" height="10"><polyline points="2,2 9,8 16,2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
+  </div>
+  
   <main class="portfolio-container">
     <div class="name-title">Malhaar Phadtare</div>
     <div class="subtitle">Tech Enthusiast</div>
@@ -303,6 +401,17 @@
       h = canvas.height = window.innerHeight;
       columns = Math.floor(w / fontSize);
       drops = Array(columns).fill(1);
+    });
+
+    // Optionally, auto-hide scroll indicator after scroll
+    let scrollIndicator = document.querySelector('.scroll-indicator');
+    window.addEventListener('scroll', function() {
+      if(window.scrollY > 40 && scrollIndicator) {
+        scrollIndicator.style.opacity = '0';
+        scrollIndicator.style.transition = 'opacity 0.5s';
+      } else if (scrollIndicator) {
+        scrollIndicator.style.opacity = '0.93';
+      }
     });
   </script>
 </body>
