@@ -2,251 +2,308 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Futuristic Sign-In</title>
+  <title>Malhaar Phadtare | Tech Enthusiast Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap');
     :root {
-      --neon-blue: #38b6ff;
-      --neon-pink: #ff3ec8;
-      --neon-purple: #a259ff;
-      --glass-bg: rgba(30, 35, 60, 0.77);
-      --border-glow: 0 0 24px var(--neon-blue), 0 0 44px var(--neon-pink);
+      --neon-green: #39ff14;
+      --neon-blue: #19bcff;
+      --neon-cyan: #00fff7;
+      --neon-purple: #9d4dff;
+      --neon-yellow: #e7ff29;
+      --bg-black: #111319;
+      --card-bg: rgba(21, 22, 34, 0.86);
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
     }
     body {
       min-height: 100vh;
-      margin: 0;
-      background: linear-gradient(135deg, #1b2037 0%, #181b28 100%);
-      overflow: hidden;
+      background: var(--bg-black);
       font-family: 'Roboto', Arial, sans-serif;
+      overflow: hidden;
+      color: #eaf8f6;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
     }
-    /* Floating geometric shapes */
-    .bg-shape {
-      position: absolute;
-      z-index: 1;
-      opacity: 0.55;
-      filter: blur(2px);
-      animation: float 9s infinite alternate;
+    /* Matrix coding animation background */
+    .matrix-bg {
+      position: fixed;
+      left: 0; top: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      background: var(--bg-black);
       pointer-events: none;
     }
-    .triangle {
-      width: 100px;
-      height: 100px;
-      left: 8vw;
-      top: 8vh;
-      background: none;
-      border-left: 70px solid var(--neon-pink);
-      border-bottom: 100px solid transparent;
-      transform: rotate(-13deg);
-      animation-delay: 0s;
-    }
-    .circle {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      right: 5vw;
-      top: 18vh;
-      background: linear-gradient(135deg, var(--neon-blue), #fff0 85%);
-      animation-delay: 2s;
-    }
-    .rectangle {
-      width: 80px;
-      height: 180px;
-      left: 15vw;
-      bottom: 12vh;
-      background: linear-gradient(120deg, var(--neon-purple) 60%, #fff0 100%);
-      border-radius: 24px;
-      animation-delay: 1.2s;
-    }
-    .diamond {
-      width: 73px;
-      height: 73px;
-      right: 14vw;
-      bottom: 12vh;
-      background: linear-gradient(135deg, var(--neon-pink) 60%, #fff0 100%);
-      border-radius: 16px;
-      transform: rotate(45deg);
-      animation-delay: 3.8s;
-    }
-    @keyframes float {
-      0% { transform: translateY(0) scale(1);}
-      50% { transform: translateY(-24px) scale(1.08);}
-      100% { transform: translateY(16px) scale(1);}
-    }
-
-    /* Glassmorphism Sign-In Form */
-    .signin-container {
+    .portfolio-container {
       position: relative;
       z-index: 2;
-      width: 370px;
-      margin: 0 auto;
-      padding: 2.5rem 2rem 2rem 2rem;
-      background: var(--glass-bg);
-      border-radius: 2.3rem;
-      box-shadow: 0 8px 38px 0 #3ad9ff34;
-      overflow: hidden;
+      min-width: 360px;
+      max-width: 500px;
+      padding: 2.6rem 2.3rem 2.1rem 2.3rem;
+      border-radius: 2.1rem;
+      background: var(--card-bg);
+      box-shadow: 0 8px 44px 0 #19bcff29, 0 2px 22px 0 #39ff1433;
       display: flex;
       flex-direction: column;
-      gap: 1.3rem;
-      animation: fadeIn 1.2s cubic-bezier(.68,-0.55,.27,1.55);
-    }
-    @media (max-width: 480px) {
-      .signin-container {
-        width: 95vw;
-        padding: 2rem 0.6rem 1.2rem 0.6rem;
-      }
-    }
-    /* Glowing animated border */
-    .signin-container::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 2.3rem;
-      padding: 2.5px;
-      background: linear-gradient(120deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue));
-      background-size: 300% 300%;
-      animation: borderGlow 7s linear infinite;
-      z-index: 0;
-      filter: blur(1.5px) brightness(1.7);
-    }
-    .signin-container > * {
-      position: relative;
-      z-index: 1;
-    }
-    @keyframes borderGlow {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+      align-items: center;
+      gap: 2.2rem;
+      backdrop-filter: blur(11px) saturate(1.3);
+      border: 2.5px solid rgba(57,255,20,0.09);
+      margin: 36px 0;
+      animation: fadeIn 1.5s;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(60px);}
       to { opacity: 1; transform: none;}
     }
-
-    .signin-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.1rem;
-      letter-spacing: 2.5px;
+    .name-title {
+      font-family: 'Orbitron', 'Roboto', monospace;
+      font-size: 2.2rem;
+      letter-spacing: 2.7px;
+      color: var(--neon-green);
+      text-shadow: 0 0 10px #39ff1470, 0 2px 18px #19bcff50;
+      margin-bottom: 0.3em;
+      text-align: center;
+    }
+    .subtitle {
+      font-size: 1.15rem;
       color: var(--neon-blue);
       text-align: center;
-      margin-bottom: 0.2em;
-      text-shadow: 0 0 16px #38b6ff66, 0 2px 20px #ff3ec850;
-      font-weight: 600;
+      letter-spacing: 1.3px;
+      text-shadow: 0 0 8px #19bcff75, 0 2px 12px #00fff766;
+      font-family: 'Orbitron', 'Roboto', monospace;
+      margin-bottom: 0.8em;
     }
-    .signin-desc {
+    .bio {
+      color: #eaf8f6;
+      font-size: 1.07rem;
       text-align: center;
-      color: #d5eaff;
-      font-size: 1.1rem;
-      margin-bottom: 1.2em;
-      letter-spacing: 0.5px;
-      font-family: 'Roboto', Arial, sans-serif;
+      margin: 0 0 1.2em 0;
+      line-height: 1.8;
+      letter-spacing: 0.2px;
+      text-shadow: 0 0 3px #00fff7a2;
     }
-    .form-group {
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75em 1.2em;
+      justify-content: center;
+      margin-bottom: 1em;
+    }
+    .skill-badge {
+      background: linear-gradient(90deg, #19bcff55, #39ff1442);
+      color: var(--neon-yellow);
+      padding: 0.4em 1.2em;
+      border-radius: 1.1em;
+      font-size: 1em;
+      font-family: 'Orbitron', 'Roboto', monospace;
+      box-shadow: 0 0 10px #39ff1444;
+      margin-bottom: 0.2em;
+      border: 1.5px solid #19bcff77;
+      letter-spacing: 0.07em;
+      text-shadow: 0 0 3px #e7ff29;
+    }
+    .section-title {
+      color: var(--neon-cyan);
+      font-family: 'Orbitron', 'Roboto', monospace;
+      font-size: 1.18rem;
+      margin: 0.9em 0 0.2em 0;
+      letter-spacing: 0.12em;
+      text-shadow: 0 0 8px #00fff788;
+      text-align: center;
+    }
+    .projects {
+      width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 1.2em;
+      margin: 0.8em 0 0.4em 0;
     }
-    label {
-      color: #b1bde9;
-      font-size: 1rem;
-      margin-bottom: 0.2rem;
-      letter-spacing: 0.4px;
-      font-weight: 500;
+    .project-card {
+      background: rgba(29,34,43,0.82);
+      border: 1.7px solid #19bcff55;
+      border-radius: 1.3em;
+      padding: 1em 1.1em;
+      box-shadow: 0 2px 18px #19bcff22, 0 0px 8px #39ff1422;
+      color: #eaf8f6;
+      transition: box-shadow 0.19s, border 0.19s;
+      position: relative;
     }
-    input[type="email"], input[type="password"] {
-      width: 100%;
-      padding: 0.9em 1em;
-      border: none;
-      border-radius: 1.2em;
-      background: rgba(24,30,50,0.85);
-      color: #fff;
-      font-size: 1.08em;
-      outline: none;
-      box-shadow: 0 2px 16px #38b6ff12;
-      transition: box-shadow 0.22s, background 0.22s;
-      margin-bottom: 0.35em;
+    .project-card:hover {
+      box-shadow: 0 0 30px #39ff1445, 0 0 28px #19bcff99;
+      border-color: var(--neon-green);
     }
-    input:focus {
-      background: rgba(56,182,255,0.13);
-      box-shadow: 0 0 0 2px var(--neon-blue), 0 0 18px 2px #38b6ff44;
+    .project-title {
+      color: var(--neon-green);
+      font-family: 'Orbitron', 'Roboto', monospace;
+      font-size: 1.09em;
+      margin-bottom: 0.2em;
+      letter-spacing: 0.09em;
     }
-    .forgot-link {
-      color: var(--neon-pink);
-      text-decoration: none;
-      font-size: 1em;
-      margin-left: auto;
-      font-weight: 500;
-      transition: color 0.19s;
-      letter-spacing: 0.1em;
+    .project-desc {
+      color: #b9f7e6;
+      font-size: 0.98em;
+      margin-bottom: 0.2em;
+      line-height: 1.4;
+      letter-spacing: 0.03em;
     }
-    .forgot-link:hover,
-    .forgot-link:focus {
+    .project-link {
       color: var(--neon-blue);
       text-decoration: underline;
-      outline: none;
+      font-size: 0.98em;
+      transition: color 0.18s;
     }
-    .signin-btn {
-      width: 100%;
-      padding: 1em 0;
-      margin-top: 0.7em;
-      border: none;
+    .project-link:hover, .project-link:focus {
+      color: var(--neon-green);
+    }
+    .links {
+      display: flex;
+      gap: 1.7rem;
+      margin-top: 1.2em;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .neon-btn {
+      font-family: 'Orbitron', 'Roboto', monospace;
+      font-size: 1.06em;
+      color: var(--neon-cyan);
+      background: none;
+      border: 2px solid var(--neon-cyan);
+      padding: 0.7em 2.2em;
       border-radius: 2em;
-      font-size: 1.15em;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      color: #fff;
-      background: linear-gradient(120deg, var(--neon-blue), var(--neon-pink), var(--neon-purple));
-      background-size: 220% 220%;
-      box-shadow: 0 0 18px 2px #38b6ff33, 0 2px 18px #ff3ec833;
       cursor: pointer;
-      letter-spacing: 0.15em;
-      transition: background-position 0.23s, transform 0.13s, box-shadow 0.17s;
+      text-decoration: none;
+      transition: 
+        background 0.19s, 
+        color 0.19s, 
+        box-shadow 0.17s,
+        border 0.18s;
+      box-shadow: 0 0 12px #00fff744, 0 2px 8px #19bcff18;
+      letter-spacing: 1.2px;
       outline: none;
       position: relative;
-      z-index: 1;
+      overflow: hidden;
     }
-    .signin-btn:hover, .signin-btn:focus {
-      background-position: right center;
-      transform: scale(1.045);
-      box-shadow: 0 0 28px 6px #a259ff22, 0 8px 30px #ff3ec844;
+    .neon-btn:hover, .neon-btn:focus {
+      background: linear-gradient(90deg, #19bcff11 0%, #39ff1450 100%);
+      color: var(--neon-green);
+      border: 2px solid var(--neon-green);
+      box-shadow: 0 0 24px #39ff1460, 0 0 28px #00fff799;
     }
-    /* Accessibility focus for all */
-    input:focus, .signin-btn:focus, .forgot-link:focus {
-      outline: 2px solid #38b6ff;
-      outline-offset: 2px;
-    }
-    /* For extra depth: backdrop for glassmorphism */
-    .signin-container {
-      backdrop-filter: blur(12px) saturate(1.4);
-      -webkit-backdrop-filter: blur(12px) saturate(1.4);
-      border: 2.5px solid rgba(56,182,255,0.07);
+    @media (max-width: 600px) {
+      .portfolio-container {
+        width: 98vw;
+        max-width: unset;
+        padding: 1.1rem 0.3rem 1.7rem 0.3rem;
+      }
+      .matrix-bg {
+        width: 100vw;
+        height: 100vh;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Floating geometric shapes -->
-  <div class="bg-shape triangle"></div>
-  <div class="bg-shape circle"></div>
-  <div class="bg-shape rectangle"></div>
-  <div class="bg-shape diamond"></div>
-  <!-- Sign-in Form -->
-  <form class="signin-container" autocomplete="off" aria-label="Sign in form">
-    <div class="signin-title">Sign In</div>
-    <div class="signin-desc">Welcome back! Please sign in to your account.</div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" required placeholder="you@email.com" autocomplete="username" />
+  <!-- Animated matrix coding background -->
+  <canvas class="matrix-bg" id="matrix"></canvas>
+  <main class="portfolio-container">
+    <div class="name-title">Malhaar Phadtare</div>
+    <div class="subtitle">Tech Enthusiast</div>
+    <div class="bio">
+      I’m passionate about technology, coding, and building innovative solutions.<br>
+      Always learning, tinkering, and pushing the boundaries of what’s possible.<br>
+      <span style="color:var(--neon-yellow);font-size:0.96em;">Let's connect and build the future together!</span>
     </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" required placeholder="Password" autocomplete="current-password" />
+    <div class="section-title">Skills</div>
+    <div class="skills">
+      <div class="skill-badge">Python</div>
+      <div class="skill-badge">JavaScript</div>
+      <div class="skill-badge">React</div>
+      <div class="skill-badge">Machine Learning</div>
+      <div class="skill-badge">Node.js</div>
+      <div class="skill-badge">C++</div>
+      <div class="skill-badge">Git & GitHub</div>
     </div>
-    <a class="forgot-link" href="#" tabindex="0">Forgot Password?</a>
-    <button class="signin-btn" type="submit">Sign In</button>
-  </form>
+    <div class="section-title">Projects</div>
+    <div class="projects">
+      <div class="project-card">
+        <div class="project-title">REM Classifier & Dream Interpretation</div>
+        <div class="project-desc">
+          A machine learning web app to analyze and interpret dream sleep cycles using bio-signal data. Interactive UI, Python backend, and insightful visualizations.
+        </div>
+        <a class="project-link" href="https://github.com/Mal-1702/REM-CLASSIFIER-DREAM-INTERPRETATION" target="_blank">View on GitHub</a>
+      </div>
+      <div class="project-card">
+        <div class="project-title">Calorie Tracker Demo App</div>
+        <div class="project-desc">
+          Lightweight calorie tracking app prototype built in React and Node.js. Features intuitive UI and real-time data visualization.
+        </div>
+        <a class="project-link" href="https://github.com/Mal-1702/Calorie-Tracker-Prototype---Demo-App" target="_blank">View on GitHub</a>
+      </div>
+      <div class="project-card">
+        <div class="project-title">Expense & Savings Tracker</div>
+        <div class="project-desc">
+          Personal finance tracker to monitor expenses and savings, with charts and reminders. Made with JavaScript, deployed on the web.
+        </div>
+        <a class="project-link" href="https://github.com/PranavUnde-07/Daily-Expense-and-Savings-Tracker" target="_blank">View on GitHub</a>
+      </div>
+    </div>
+    <div class="links">
+      <a class="neon-btn" href="https://github.com/Mal-1702" target="_blank" rel="noopener">GitHub</a>
+      <a class="neon-btn" href="mailto:malhaar@example.com">Email</a>
+      <a class="neon-btn" href="#" onclick="alert('Portfolio coming soon!')">More Projects</a>
+    </div>
+  </main>
+  <script>
+    // Matrix code animation (optimized for neon/tech look)
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+    let fontSize = 22;
+    let columns = Math.floor(w / fontSize);
+    let drops = Array(columns).fill(1);
+
+    // Characters: binary, code, symbols
+    const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&@<>'.split('');
+
+    function drawMatrix(){
+      ctx.fillStyle = 'rgba(17, 19, 25, 0.19)';
+      ctx.fillRect(0, 0, w, h);
+      for(let i=0; i<columns; i++){
+        const text = chars[Math.floor(Math.random()*chars.length)];
+        // Neon gradient for code
+        let grad = ctx.createLinearGradient(0, drops[i]*fontSize, 0, drops[i]*fontSize+fontSize);
+        grad.addColorStop(0, '#00fff7');
+        grad.addColorStop(0.5, '#39ff14');
+        grad.addColorStop(1, '#19bcff');
+        ctx.font = `bold ${fontSize}px 'Roboto Mono', 'Consolas', monospace`;
+        ctx.fillStyle = grad;
+        ctx.shadowColor = '#00fff7';
+        ctx.shadowBlur = 9;
+        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+        ctx.shadowBlur = 0;
+        if(drops[i]*fontSize > h && Math.random() > 0.96){
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+    setInterval(drawMatrix, 45);
+
+    // Responsive resize
+    window.addEventListener('resize', () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      columns = Math.floor(w / fontSize);
+      drops = Array(columns).fill(1);
+    });
+  </script>
 </body>
 </html>
