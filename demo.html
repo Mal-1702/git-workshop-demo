@@ -1,48 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Simple HTML Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f9f9f9;
-        }
-        .container {
-            background: #fff;
-            padding: 30px 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px #0001;
-            max-width: 400px;
-            margin: auto;
-            text-align: center;
-        }
-        button {
-            padding: 10px 20px;
-            background: #0066ff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        button:hover {
-            background: #004bb5;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Gmail-Inspired Dark Sign-In</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(ellipse at 70% 20%, #232942 0%, #181a23 100%);
+      color: #f7faff;
+      font-family: 'Roboto', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      background: rgba(30, 34, 54, 0.93);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px 0 #0c102733;
+      padding: 42px 38px 34px 38px;
+      min-width: 370px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 36px;
+      position: relative;
+      z-index: 2;
+    }
+    .gmail-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      font-size: 2.3em;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #f7faff;
+      margin-bottom: 12px;
+    }
+    .gmail-logo svg {
+      width: 45px;
+      height: 45px;
+      margin-right: 10px;
+      filter: drop-shadow(0 0 16px #e34c4c88);
+    }
+    .sign-in-btn {
+      background: linear-gradient(90deg, #5a62f7 0%, #c94ce3 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.85em 2.4em;
+      font-size: 1.1em;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 18px #4a5afe44;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: transform 0.15s, box-shadow 0.18s, background 0.13s;
+    }
+    .sign-in-btn:hover, .sign-in-btn:focus {
+      background: linear-gradient(90deg, #c94ce3 0%, #5a62f7 100%);
+      transform: scale(1.07);
+      box-shadow: 0 8px 30px #5c5ce333;
+      outline: none;
+    }
+    .aesthetic-text {
+      color: #b8b9df;
+      font-size: 1.13em;
+      margin-top: 10px;
+      text-align: center;
+      font-style: italic;
+      letter-spacing: 0.3px;
+    }
+
+    /* 3D Ball and Torus */
+    .torus-container {
+      position: absolute;
+      top: -110px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 240px;
+      height: 180px;
+      z-index: 1;
+      pointer-events: none;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: none;
+    }
+
+    /* Glow effect for container */
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 12px; left: 8px; right: 8px; bottom: 12px;
+      border-radius: 20px;
+      background: radial-gradient(ellipse at 60% 30%, #b44cda22 0%, #323a81 100%);
+      filter: blur(18px);
+      opacity: 0.17;
+      z-index: -1;
+    }
+    @media (max-width: 520px) {
+      .container { min-width: unset; width: 96vw; }
+      .torus-container { width: 90vw; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to My Simple HTML Page</h1>
-        <p>This is a simple web page with a header, a paragraph, and a button. Click the button below to see an alert!</p>
-        <button id="myButton">Click Me</button>
+  <div class="container">
+    <div class="torus-container">
+      <canvas id="torus-canvas" width="240" height="180"></canvas>
     </div>
-    <script>
-        document.getElementById('myButton').addEventListener('click', function() {
-            alert('Button was clicked!');
-        });
-    </script>
+    <div class="gmail-logo">
+      <svg viewBox="0 0 48 48">
+        <g>
+          <rect width="48" height="48" rx="10" fill="#181a23"/>
+          <polyline points="8,13 24,27 40,13" fill="none" stroke="#e34c4c" stroke-width="4"/>
+          <rect x="8" y="13" width="32" height="22" rx="5" fill="none" stroke="#fff" stroke-width="3"/>
+          <polyline points="8,35 24,21 40,35" fill="none" stroke="#34a853" stroke-width="4"/>
+        </g>
+      </svg>
+      Gmail
+    </div>
+    <div class="aesthetic-text">
+      Welcome back! Experience the new minimal dark Gmail.<br>
+      Sign in to continue.
+    </div>
+    <button class="sign-in-btn">Sign In</button>
+  </div>
+  <script>
+    // 3D Torus and Ball Animation on Canvas (pseudo-3D with perspective)
+    const canvas = document.getElementById('torus-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    const cx = w/2, cy = h/2;
+    const torusR = 56, tubeR = 23;
+    const numPoints = 110;
+    const ballColor = "#e34c4c";
+    let theta = 0;
+
+    function drawTorusBall(t) {
+      ctx.clearRect(0,0,w,h);
+
+      // Draw torus (side view, 3D illusion)
+      for(let i=0;i<numPoints;i++) {
+        const angle = (i/numPoints)*2*Math.PI;
+        const x = cx + (torusR * Math.cos(angle));
+        const y = cy + (torusR * Math.sin(angle)) * 0.44;
+        ctx.beginPath();
+        ctx.arc(x, y, tubeR*0.13, 0, 2*Math.PI);
+        ctx.fillStyle = `rgba(90,98,247,${0.07+0.12*Math.cos(angle)})`;
+        ctx.shadowColor = "#5a62f7";
+        ctx.shadowBlur = 7;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+      // Animate the ball
+      const bAngle = t;
+      const bx = cx + (torusR * Math.cos(bAngle));
+      const by = cy + (torusR * Math.sin(bAngle)) * 0.44;
+      const z = Math.sin(bAngle); // -1 (back) to 1 (front)
+      const ballRad = tubeR * (0.65 + 0.25*z);
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(bx, by, ballRad, 0, 2*Math.PI);
+      // Ball gradient for 3D effect
+      const grad = ctx.createRadialGradient(bx-ballRad*0.4, by-ballRad*0.5, ballRad*0.1, bx, by, ballRad);
+      grad.addColorStop(0, "#fff7cc");
+      grad.addColorStop(0.24, "#e34c4c");
+      grad.addColorStop(1, "#3a1222");
+      ctx.fillStyle = grad;
+      ctx.shadowColor = "#e34c4c";
+      ctx.shadowBlur = 22+16*z;
+      ctx.globalAlpha = 0.94;
+      ctx.fill();
+      ctx.restore();
+      // Ball reflection
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(bx-ballRad*0.38, by-ballRad*0.36, ballRad*0.25, 0, 2*Math.PI);
+      ctx.fillStyle = "rgba(255,255,255,0.19)";
+      ctx.fill();
+      ctx.restore();
+    }
+    function animate() {
+      theta += 0.025;
+      drawTorusBall(theta);
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
 </body>
 </html>
